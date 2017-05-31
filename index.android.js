@@ -5,6 +5,10 @@
  */
 
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import {createStore, applyMiddleware, combineReduxers, compose } from 'redux'
+import thunkmiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
 import {
   AppRegistry,
   StyleSheet,
@@ -19,13 +23,6 @@ export default class Movies extends Component {
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
       </View>
     );
   }
@@ -36,12 +33,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#000000',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    color: '#E5E5E5',
   },
   instructions: {
     textAlign: 'center',
