@@ -11,23 +11,13 @@ class Api {
     return this.xhr(route, null, 'GET');
   }
 
-  static put(route, params) {
-    return this.xhr(route, params, 'PUT')
-  }
-
-  static post(route, params) {
-    return this.xhr(route, params, 'POST')
-  }
-
-  static delete(route, params) {
-    return this.xhr(route, params, 'DELETE')
-  }
-
   static xhr(route, params, verb) {
-    const host = 'https://api.themoviedb.org/3/search/movie?api_key={api_key}&query=Jack+Reacher'
-    const url = `${host}${route}`
-    let options = Object.assign({ method: verb }, params ? { body: JSON.stringify(params) } : null );
+    const host = 'https://api.themoviedb.org/3'
+    const apiKey = '&api_key=f1281a1b61b0c9484a206eb2a84d2ca0'
+    const url = `${host}${route}${apiKey}`
+    let options = Object.assign({ method: verb });
     options.headers = Api.headers()
+    console.log(url, options);
     return fetch(url, options).then( resp => {
       let json = resp.json();
       if (resp.ok) {
