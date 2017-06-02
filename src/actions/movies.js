@@ -6,7 +6,7 @@ export function fetchMovies(query) {
 		const params = [
 			`query=${encodeURIComponent(query)}`
 		].join('&');
-		return Api.get(`/search/movie?${params}`).then(resp => {
+		return Api.get(`/search/movie?${params}`).then(resp => {		
 			dispatch(setSearchedMovies({ movies: resp }))
 		}).catch( (ex) => {
 			// Nothing
