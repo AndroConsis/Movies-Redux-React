@@ -95,5 +95,23 @@ module.exports = StyleSheet.create({
 		fontSize: em(1.25),
 		marginTop: em(.2),
    	  	color: '#616161'
+	},
+
+	modalContainer: {
+      alignItems: 'center',
+      backgroundColor: '#ede3f2',
+      padding: 100
+	},
+
+	modal: {
+	  flex: 1,
+	  alignItems: 'center',
+	  backgroundColor: '#f7021a',
+	  padding: 100
+	},
+
+	text: {
+	  color: '#3f2949',
+	  marginTop: 10
 	}
 });

@@ -13,6 +13,7 @@ const {
 } = ReactNative
 
 const imageBaseUrl = 'http://image.tmdb.org/t/p/w500/'
+const movieIds = [166426,297762,283995,324552,126889,419430,381288,337339,282035,339846,274857,14564,295693,397837,433422,345938,381289,339967,258230,372058]
 
 class Home extends Component {
 	
@@ -21,8 +22,15 @@ class Home extends Component {
 	
 	  this.state = {
 	  	searchText: '',
-	  	isLoading: false,
+	  	isLoading: true,
 	  };
+	}
+
+	componentWillMount() {
+		this.props.fetchMovie(this.aMovieId()).then(() => {
+			console.log(this.props.oneMovie);
+			this.setState({isLoading: false});
+		})
 	}
 
 	searchPressed() {
@@ -38,6 +46,10 @@ class Home extends Component {
 
 	releaseYear(date) {
 		return (date.split('-'))[0]
+	}
+
+	aMovieId() {
+		return movieIds[Math.floor(Math.random()*movieIds.length)];
 	}
 
 	render() {
@@ -81,7 +93,8 @@ class Home extends Component {
 
 function mapStateToProps(state) {
 	return {
-		searchedMovies: state.searchedMovies
+		searchedMovies: state.searchedMovies,
+		oneMovie: state.oneMovie
 	}
 }
 

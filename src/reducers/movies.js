@@ -10,3 +10,11 @@ export const searchedMovies = createReducer({}, {
 		return newState;
 	}
 });
+
+export const oneMovie = createReducer({}, {
+	[types.SET_ONE_MOVIE](state, action) {
+		let newState = {};
+		newState = action;
+		return newState;
+	}
+})
