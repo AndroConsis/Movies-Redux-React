@@ -19,10 +19,10 @@ const imageBaseUrl = 'http://image.tmdb.org/t/p/w500/'
 const movieIds = [166426,297762,283995,324552,126889,419430,381288,337339,282035,339846,274857,14564,295693,397837,433422,345938,381289,339967,258230,372058]
 
 class Home extends Component {
-	
+
 	constructor(props) {
 	  super(props);
-	
+
 	  this.state = {
 	  	searchText: '',
 	  	isLoading: false,
@@ -47,7 +47,7 @@ class Home extends Component {
 			this.setState({
 				isLoading: false,
 				movie: this.props.oneMovie
-			});	
+			});
 
 			setTimeout(()=>{
 				this.setState({
@@ -77,17 +77,17 @@ class Home extends Component {
 	}
 
 	render() {
-		return <KeyboardAvoidingView 
-		behavior='padding'
+		return <View
 		style={styles.container}>
 
-			<View 
+			<KeyboardAvoidingView
+			behavior="height"
 			style={styles.searchSection}>
 				<TextInput style={styles.searchInput}
 					returnKeyType='search'
 					underlineColorAndroid = "transparent"
 					placeholder='SEARCH HERE'
-					autoCapitalize = 'characters' 
+					autoCapitalize = 'characters'
 					onChangeText = {(searchText) => this.setState({searchText})}
 					value={this.state.searchText}
 				/>
@@ -95,19 +95,20 @@ class Home extends Component {
 									<ActivityIndicator/>
 								</View>}
 
-				{!this.state.isLoading && <TouchableHighlight style={styles.searchButton} onPress={ () => this.searchPressed() }>
+				{!this.state.isLoading &&
+					<TouchableHighlight style={styles.searchButton} onPress={ () => this.searchPressed() }>
 								<Text>SEARCH</Text>
-								</TouchableHighlight>}
-			</View>
+					</TouchableHighlight>}
+			</KeyboardAvoidingView>
 			{<ScrollView style={styles.scrollSection}>
 					{this.movies().map((movie) => {
 						return <View key={movie.id}>
 							<TouchableHighlight onPress={() => this.fetchMovieDetails(movie.id) }>
 							<View style={styles.movieCard}>
 								<View style={styles.movieItemPosterContainer}>
-									<Image 
-									resizeMode="contain" 
-									source= { {uri: imageBaseUrl + movie.poster_path} } 
+									<Image
+									resizeMode="contain"
+									source= { {uri: imageBaseUrl + movie.poster_path} }
 									style={styles.movieImage}/>
 								</View>
 								<View style={styles.movieInfo}>
@@ -116,7 +117,7 @@ class Home extends Component {
 									<Text style={styles.movieYear}>{this.releaseYear(movie.release_date)}</Text>
 									</View>
 									<View>
-										<Text 
+										<Text
 										style={styles.overview}>{movie.overview}</Text>
 									</View>
 								</View>
@@ -124,10 +125,10 @@ class Home extends Component {
 							</TouchableHighlight>
 						</View>
 					})}
-				</ScrollView> 
-			} 
+				</ScrollView>
+			}
 			{this.state.modalVisible && <MovieModal {...this.props}/>}
-		</KeyboardAvoidingView>
+		</View>
 	}
 }
 
