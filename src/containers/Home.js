@@ -3,6 +3,7 @@ import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import styles from '../../styles/main'
 import MovieModal from './movieModal'
+import MovieCard from './MovieCard'
 
 const {
 	ScrollView,
@@ -103,27 +104,8 @@ class Home extends Component {
 			{<ScrollView style={styles.scrollSection}>
 					{this.movies().map((movie) => {
 						return <View key={movie.id}>
-							<TouchableHighlight onPress={() => this.fetchMovieDetails(movie.id) }>
-							<View style={styles.movieCard}>
-								<View style={styles.movieItemPosterContainer}>
-									<Image
-									resizeMode="contain"
-									source= { {uri: imageBaseUrl + movie.poster_path} }
-									style={styles.movieImage}/>
-								</View>
-								<View style={styles.movieInfo}>
-									<View>
-									<Text style={styles.movieTitle}>{movie.title}</Text>
-									<Text style={styles.movieYear}>{this.releaseYear(movie.release_date)}</Text>
-									</View>
-									<View>
-										<Text
-										style={styles.overview}>{movie.overview}</Text>
-									</View>
-								</View>
-							</View>
-							</TouchableHighlight>
-						</View>
+										<MovieCard movie={movie}/>
+						       </View>
 					})}
 				</ScrollView>
 			}
