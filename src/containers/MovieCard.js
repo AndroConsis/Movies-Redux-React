@@ -14,14 +14,15 @@ const MovieCard = (props) =>  {
   return <View style={styles.movieCard}>
 
     {/*Image View Container*/}
-      <View style={styles.movieItemPosterContainer}>
+      <View style={styles.movieCardPosterContainer}>
         <Image
-          resizeMode="contain"
+          resizeMode="cover"
           source= { {uri: imageBaseUrl + props.movie.poster_path} }
           style={styles.movieImage}/>
       </View>
+
       {/*Info View Container*/}
-      <View style={styles.movieInfoContainer}>
+      <View style={styles.movieCardInfoContainer}>
         <View>
           <Text style={styles.movieTitle}>{props.movie.title}</Text>
           <Text style={styles.movieYear}>{props.movie.release_date}</Text>

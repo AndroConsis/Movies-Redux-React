@@ -24,7 +24,7 @@ const SMOKY = '#6C5B7B'
 const MING = '#355C7D'
 
 
-// We add an em() shortcut function 
+// We add an em() shortcut function
 export function em(value) {
   return unit * value;
 }
@@ -39,15 +39,15 @@ module.exports = StyleSheet.create({
 	searchSection: {
 		flexDirection: 'row',
 		backgroundColor: TURKISH,
-		flex: 1,
+		flex: .1,
 	},
 
 	searchInput: {
 		flex: .8,
 		paddingLeft: em(1),
-      	paddingRight: em(1),
-      	fontSize: em(1.25),
-      	color: 'white',
+  	paddingRight: em(1),
+  	fontSize: em(1.25),
+  	color: 'white',
 	},
 
 	searchButton: {
@@ -62,31 +62,33 @@ module.exports = StyleSheet.create({
 	},
 
 	movieCard: {
-      	height: 150,
-      	flex: 1,
-      	flexDirection: 'row',
-      	borderWidth: 1, 
-      	borderRadius: 2,
-      	borderColor: BUD,
-      	marginLeft: 5,
-      	marginRight: 5,
-      	marginTop: 5,
+  	height: 150,
+  	flex: 1,
+  	flexDirection: 'row',
+    justifyContent: 'flex-start',
+    borderWidth: 1,
+  	borderRadius: 2,
+  	borderColor: BUD,
+  	marginLeft: 5,
+  	marginRight: 5,
+  	marginTop: 5,
 	},
+
+  movieCardPosterContainer: {
+      flex: .4,
+  },
 
 	movieImage: {
 		// height: (x - em(1.75) * 2) * (3/5),
 		// width: (x - em(1) * 2) * (2/5),
-		height: 150,
-		width: 100,
-		flex: .4,
-		justifyContent: 'center',
-		alignItems: 'center',
+    backgroundColor: TURKISH,
+    flex: 1,
 	},
 
-	movieInfo: {
-		flex: .6,
+	movieCardInfoContainer: {
+    flex: .8,
+    flexDirection: 'column',
 		justifyContent: 'flex-start',
-		alignItems: 'flex-start',
 		paddingLeft: 10,
 		paddingTop: 10,
 	},

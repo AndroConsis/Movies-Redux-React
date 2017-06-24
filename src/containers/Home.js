@@ -104,8 +104,14 @@ class Home extends Component {
 			{<ScrollView style={styles.scrollSection}>
 					{this.movies().map((movie) => {
 						return <View key={movie.id}>
-										<MovieCard movie={movie}/>
-						       </View>
+							<TouchableHighlight
+								onPress={() => this.fetchMovieDetails(movie.id) }
+								underlayColor="transparent">
+								<View>
+									<MovieCard movie={movie}/>
+								</View>
+							</TouchableHighlight>
+						</View>
 					})}
 				</ScrollView>
 			}
