@@ -8,7 +8,8 @@ import {
    View,
    Image,
    StyleSheet,
-   ScrollView
+   ScrollView,
+   Modal
 } from 'react-native'
 
 
@@ -29,8 +30,9 @@ class MovieModal extends Component {
 
    render() {
       return (
-            <SlidingUpPanel
+            <Modal
                visible = {this.props.modalVisible}
+               animationType={"slide"}
                onRequestClose = {() => { this._handleOnRequestClose() } }
                >
                <ScrollView style = {styles.modal}>
@@ -47,13 +49,13 @@ class MovieModal extends Component {
                   <View style = {styles.spacer}></View>
                   <Text>{this.movie().overview}</Text>
                   </View>
-                  <TouchableHighlight 
-                     style={styles.closeButton} 
+                  <TouchableHighlight
+                     style={styles.closeButton}
                      onPress={() => {this._handleOnRequestClose()}}>
                      <Text style = {styles.text}>CLOSE</Text>
                   </TouchableHighlight>
                </ScrollView>
-            </SlidingUpPanel>
+            </Modal>
       )
    }
 }
