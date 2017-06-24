@@ -16,22 +16,30 @@ const base_unit = 22;
 // We're simulating EM by changing font size according to Ratio
 const unit = base_unit * ratioX;
 
+// Color Palette
+const BUD = '#F8B195'
+const FROLY = '#F67280'
+const TURKISH = '#C06C84'
+const SMOKY = '#6C5B7B'
+const MING = '#355C7D'
+
+
 // We add an em() shortcut function 
 export function em(value) {
   return unit * value;
 }
 
 
+
 module.exports = StyleSheet.create({
 	container: {
-	  flex: 1
+	  flex: 1,
 	},
 
 	searchSection: {
-		borderBottomWidth: 2,
-		borderBottomColor: '#212121',
-		backgroundColor: 'white',
 		flexDirection: 'row',
+		backgroundColor: TURKISH,
+		flex: 1,
 	},
 
 	searchInput: {
@@ -39,79 +47,112 @@ module.exports = StyleSheet.create({
 		paddingLeft: em(1),
       	paddingRight: em(1),
       	fontSize: em(1.25),
+      	color: 'white',
 	},
 
 	searchButton: {
 		flex: 0.2,
-		height: 48,
 		justifyContent: 'center',
 		alignItems: 'center',
-		borderLeftColor: '#BDBDBD',
-      	borderLeftWidth: 1
+		paddingRight: 6,
 	},
 
 	scrollSection : {
-		backgroundColor: 'white',
+		flex: 2
 	},
 
 	movieCard: {
-		flex: 1,
-		flexDirection: 'row',
-		backgroundColor: "#FFFFFF",
-		borderBottomWidth: 0,
-		padding: 10,
-		paddingBottom: 0,
-		borderColor: '#e5e5e5',
-		justifyContent: 'space-between',
-      	height: (x - em(10) * 2) * (2/5)
+      	height: 150,
+      	flex: 1,
+      	flexDirection: 'row',
+      	borderWidth: 1, 
+      	borderRadius: 2,
+      	borderColor: BUD,
+      	marginLeft: 5,
+      	marginRight: 5,
+      	marginTop: 5,
 	},
 
 	movieImage: {
-		height: (x - em(1.75) * 2) * (3/5),
-		width: (x - em(1) * 2) * (2/5),
-		marginLeft: em(.4),
-		alignSelf: 'flex-start',
-		justifyContent: 'flex-start',
-		top: 0,
-		bottom: 0,
-		left: 0,
-		right: 0,
+		// height: (x - em(1.75) * 2) * (3/5),
+		// width: (x - em(1) * 2) * (2/5),
+		height: 150,
+		width: 100,
+		flex: .4,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 
 	movieInfo: {
-		flex: 1,
+		flex: .6,
+		justifyContent: 'flex-start',
 		alignItems: 'flex-start',
-		padding: em(.2),
-		paddingTop: 0,
+		paddingLeft: 10,
+		paddingTop: 10,
 	},
 
 	movieTitle: {
-		color: '#212121',
-		alignSelf: 'flex-start',
-		fontSize: em(1.25),
+		fontSize: 24,
 	},
 
 	movieYear: {
-		fontSize: em(1.25),
-		marginTop: em(.2),
-   	  	color: '#616161'
-	},
-
-	modalContainer: {
-      alignItems: 'center',
-      backgroundColor: '#ede3f2',
-      padding: 100
 	},
 
 	modal: {
 	  flex: 1,
-	  alignItems: 'center',
-	  backgroundColor: '#f7021a',
-	  padding: 100
+	  top: 0,
+	  bottom: 0,
+	  right: 0,
+	  left: 0,
+	  backgroundColor: 'white'
+	},
+
+	movieImageFull: {
+	  height: 450,
+	},
+	movieInfoFull: {
+		justifyContent: 'center',
+		alignItems: 'flex-start',
+		padding: 10,
 	},
 
 	text: {
-	  color: '#3f2949',
 	  marginTop: 10
-	}
+	},
+	spacer: {
+		height: 6,
+	},
+	closeButton: {
+		position: 'absolute',
+		top: 10,
+		right: 100,
+		left: 100,
+		alignItems: 'center',
+		justifyContent: 'center',
+		height: 44,
+		borderRadius: 2,
+		borderWidth: 1,
+
+	},
+
+	text: {
+		fontSize: 18,
+		fontWeight: "700",
+	},
+
+	activityIndicator: {
+		flex: 1,
+		top: 0,
+		bottom: 0,
+		left: 0,
+		right: 0,
+		position: 'absolute',
+		justifyContent: 'center',
+		alignItems: 'center',
+		color: FROLY,
+	},
+
+	movieItemPosterContainer: {
+		flex: 2,
+	},
 });

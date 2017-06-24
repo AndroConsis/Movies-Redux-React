@@ -1,48 +1,68 @@
 import React, { Component } from 'react'
 import styles from '../../styles/main'
-
+import { connect } from 'react-redux'
+import SlidingUpPanel from 'rn-sliding-up-panel'
 import {
-   Modal,
    Text,
    TouchableHighlight,
    View,
-   StyleSheet
+   Image,
+   StyleSheet,
+   ScrollView
 } from 'react-native'
 
-class MovieModal extends Component {
 
-   state = {
-      modalVisible: false,
+const imageBaseUrl = 'http://image.tmdb.org/t/p/w500/'
+
+class MovieModal extends Component {
+   constructor(props) {
+     super(props);
    }
 
-   toggleModal(visible) {
-      this.setState({ modalVisible: visible });
+   _handleOnRequestClose() {
+      this.props.hideModal();
+   }
+
+   movie() {
+      return this.props.oneMovie.movie;
    }
 
    render() {
       return (
-         <View style = {styles.modalContainer}>
-
-            <Modal animationType = {"slide"} transparent = {false}
-               visible = {this.state.modalVisible}
-               onRequestClose = {() => { console.log("Modal has been closed.") } }>
-               <View style = {styles.modal}>
-                  <Text style = {styles.text}>Modal is open!</Text>
-
-                  <TouchableHighlight onPress={() => {this.toggleModal(!this.state.modalVisible)}}>
-                     <Text style = {styles.text}>Close Modal</Text>
+            <SlidingUpPanel
+               visible = {this.props.modalVisible}
+               onRequestClose = {() => { this._handleOnRequestClose() } }
+               >
+               <ScrollView style = {styles.modal}>
+                  <Image
+                   resizeMode="cover"
+                   source={{uri: imageBaseUrl + this.movie().poster_path}}
+                   style = {styles.movieImageFull}
+                  />
+                  <View style = {styles.spacer}></View>
+                  <View style={styles.movieInfoFull}>
+                  <Text style = {styles.movieTitle}>{this.movie().title}</Text>
+                  <View style = {styles.spacer}></View>
+                  <Text>{this.movie().release_date}</Text>
+                  <View style = {styles.spacer}></View>
+                  <Text>{this.movie().overview}</Text>
+                  </View>
+                  <TouchableHighlight 
+                     style={styles.closeButton} 
+                     onPress={() => {this._handleOnRequestClose()}}>
+                     <Text style = {styles.text}>CLOSE</Text>
                   </TouchableHighlight>
-
-               </View>
-            </Modal>
-
-            <TouchableHighlight onPress = {() => {this.toggleModal(true)}}>
-               <Text style = {styles.text}>Open Modal</Text>
-            </TouchableHighlight>
-
-         </View>
+               </ScrollView>
+            </SlidingUpPanel>
       )
    }
 }
 
-export default MovieModal
+function mapStateToProps(state) {
+  return {
+    modalVisible: state.modalVisible,
+    oneMovie: state.oneMovie
+  }
+}
+
+export default connect(mapStateToProps)(MovieModal);

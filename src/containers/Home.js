@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactNative from 'react-native'
 import { connect } from 'react-redux'
 import styles from '../../styles/main'
+import MovieModal from './movieModal'
 
 const {
 	ScrollView,
@@ -10,6 +11,8 @@ const {
 	TextInput,
 	Image,
 	TouchableHighlight,
+	ActivityIndicator,
+	KeyboardAvoidingView
 } = ReactNative
 
 const imageBaseUrl = 'http://image.tmdb.org/t/p/w500/'
@@ -22,14 +25,35 @@ class Home extends Component {
 	
 	  this.state = {
 	  	searchText: '',
-	  	isLoading: true,
+	  	isLoading: false,
+	  	modalVisible: false,
+	  	movie: {}
 	  };
 	}
 
 	componentWillMount() {
-		this.props.fetchMovie(this.aMovieId()).then(() => {
-			console.log(this.props.oneMovie);
-			this.setState({isLoading: false});
+		/*this.props.fetchMovie(this.aMovieId()).then(() => {
+			this.setState({
+				isLoading: false,
+				modalVisible: true,
+				movie: this.props.oneMovie
+			});
+		})*/
+	}
+
+	fetchMovieDetails(movieId) {
+		this.setState({isLoading: true});
+		this.props.fetchMovie(movieId).then(() => {
+			this.setState({
+				isLoading: false,
+				movie: this.props.oneMovie
+			});	
+
+			setTimeout(()=>{
+				this.setState({
+					modalVisible: true
+				});
+			}, 20)
 		})
 	}
 
@@ -53,41 +77,57 @@ class Home extends Component {
 	}
 
 	render() {
-		return <View style={styles.container}>
-			<View style={styles.searchSection}>
+		return <KeyboardAvoidingView 
+		behavior='padding'
+		style={styles.container}>
+
+			<View 
+			style={styles.searchSection}>
 				<TextInput style={styles.searchInput}
 					returnKeyType='search'
 					underlineColorAndroid = "transparent"
-					placeholder='Movie name'
+					placeholder='SEARCH HERE'
+					autoCapitalize = 'characters' 
 					onChangeText = {(searchText) => this.setState({searchText})}
 					value={this.state.searchText}
 				/>
-				<TouchableHighlight style={styles.searchButton} onPress={ () => this.searchPressed() }>
-				<Text>SEARCH</Text>
-				</TouchableHighlight>
+				{this.state.isLoading && <View style={styles.searchButton}>
+									<ActivityIndicator/>
+								</View>}
+
+				{!this.state.isLoading && <TouchableHighlight style={styles.searchButton} onPress={ () => this.searchPressed() }>
+								<Text>SEARCH</Text>
+								</TouchableHighlight>}
 			</View>
-			{ !this.state.isLoading && <ScrollView style={styles.scrollSection}>
+			{<ScrollView style={styles.scrollSection}>
 					{this.movies().map((movie) => {
-						return <View key={movie.id} style={styles.movieCard}>
-							<Image 
-							resizeMode="contain" 
-							source= { {uri: imageBaseUrl + movie.poster_path} } 
-							style={styles.movieImage}/>
-							<View style={styles.movieInfo}>
-								<Text style={styles.movieTitle}>{movie.title}</Text>
-								<Text style={styles.movieYear}>{this.releaseYear(movie.release_date)}</Text>
+						return <View key={movie.id}>
+							<TouchableHighlight onPress={() => this.fetchMovieDetails(movie.id) }>
+							<View style={styles.movieCard}>
+								<View style={styles.movieItemPosterContainer}>
+									<Image 
+									resizeMode="contain" 
+									source= { {uri: imageBaseUrl + movie.poster_path} } 
+									style={styles.movieImage}/>
+								</View>
+								<View style={styles.movieInfo}>
+									<View>
+									<Text style={styles.movieTitle}>{movie.title}</Text>
+									<Text style={styles.movieYear}>{this.releaseYear(movie.release_date)}</Text>
+									</View>
+									<View>
+										<Text 
+										style={styles.overview}>{movie.overview}</Text>
+									</View>
+								</View>
 							</View>
+							</TouchableHighlight>
 						</View>
 					})}
 				</ScrollView> 
 			} 
-			{	this.state.isLoading && <View>
-					<Text>Looking for it...</Text>
-				</View>
-
-			}
-
-		</View>
+			{this.state.modalVisible && <MovieModal {...this.props}/>}
+		</KeyboardAvoidingView>
 	}
 }
 

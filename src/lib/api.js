@@ -17,15 +17,25 @@ class Api {
     const url = `${host}${route}${apiKey}`
     let options = Object.assign({ method: verb });
     options.headers = Api.headers()
-    console.log(url, options);
-    return fetch(url, options).then( resp => {
-      debugger
+    return fetch(url, options)
+      .then((response) => response.json())
+      .then(response => {
+        if(response.ok) {
+          console.log('OK');
+          return response;
+        }
+        return response;
+      })
+
+    /*.then( resp => {
+      console.log(resp);
       let json = resp.json();
+      console.log(json);
       if (resp.ok) {
         return json
       }
       return json.then(err => {throw err});
-    }).then( json => json.results );
+    }).then( json => json.results );*/
   }
 }
 export default Api

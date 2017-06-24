@@ -18,3 +18,12 @@ export const oneMovie = createReducer({}, {
 		return newState;
 	}
 })
+
+export const modalVisible = createReducer(false, {
+	[types.HIDE_MODAL](state, action) {
+		return false;
+	},
+	[types.SET_ONE_MOVIE](state, action) {
+		return true;
+	}
+})
